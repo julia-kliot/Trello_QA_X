@@ -1,5 +1,6 @@
 package manager;
 
+import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,6 +18,11 @@ public class UserHelper extends HelperBase{
         type(By.cssSelector("#user"), email);
         click(By.cssSelector("#login"));
         type(By.cssSelector("#password"), password);
+    }
+    public void fillLoginForm(User user) {
+        type(By.cssSelector("#user"), user.getEmail());
+        click(By.cssSelector("#login"));
+        type(By.cssSelector("#password"), user.getPassword());
     }
     public void submitLogin() {
         click(By.cssSelector("#login-submit"));
@@ -37,4 +43,23 @@ public class UserHelper extends HelperBase{
     public boolean isLogged(){
         return  wd.findElements(By.cssSelector("[data-test-id='header-member-menu-button']")).size()>0;
     }
+    public String textErrorMessage(){
+        return elementGetText(By.cssSelector("#error p"));
+    }
+
+    public String textErrorWrongPasswordDisplaed() {
+
+        return elementGetText(By.cssSelector("#password-error"));
+    }
+
+
+    public boolean isLogginButtonPresent() {
+        return isElementPresent(By.cssSelector("[href='/login']"));
+    }
+  public boolean isLoginButtonPresent(){
+        return  isElementPresent(By.cssSelector("[href='/login']"));
+
+  }
+
 }
+
